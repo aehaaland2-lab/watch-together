@@ -1,26 +1,14 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Room from './pages/Room';
 
-import Room from "./pages/Room";
-
-function App() {
+export default function App() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <div style={{ padding: 40 }}>
-            <h1>🎬 Watch Together</h1>
-
-            <Link to="/room/test123">
-              Перейти в тестовую комнату
-            </Link>
-          </div>
-        }
-      />
-
-      <Route path="/room/:roomId" element={<Room />} />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/room/:roomId" element={<Room />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

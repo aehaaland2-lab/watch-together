@@ -1,240 +1,166 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Inter,Arial,sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-deep: #050508;
+  --panel-bg: rgba(12, 14, 22, 0.65);
+  --panel-border: rgba(99, 102, 241, 0.15);
+  --panel-border-hover: rgba(99, 102, 241, 0.4);
+  --accent: #6366f1;
+  --accent-glow: rgba(99, 102, 241, 0.35);
+  --success: #10b981;
+  --danger: #ef4444;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
 }
 
-body{
-    background:linear-gradient(135deg,#090b10,#121826,#1a2235);
-    color:#fff;
-    min-height:100vh;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-button{
-    cursor:pointer;
-    transition:.25s;
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
 }
 
-input{
-    width:100%;
-    padding:14px 16px;
-    background:#1a2131;
-    border:1px solid #2b3955;
-    border-radius:12px;
-    color:white;
-    outline:none;
-    transition:.25s;
+/* === КИБЕРПАНК ФОН С ПАТТЕРНАМИ И АНИМАЦИЕЙ === */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -2;
 }
 
-input:focus{
-    border-color:#4ea8ff;
-    box-shadow:0 0 15px rgba(78,168,255,.25);
+/* Плавающие неоновые сферы сзади */
+.bg-glow-orb {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -3;
+  opacity: 0.25;
+  animation: orbFloat 12s ease-in-out infinite alternate;
 }
 
-.room-page{
-    max-width:1500px;
-    margin:auto;
-    padding:25px;
+.orb-1 {
+  top: -10%;
+  left: -10%;
+  background: #6366f1;
 }
 
-.room-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-    background:rgba(255,255,255,.05);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    padding:18px 24px;
+.orb-2 {
+  bottom: -10%;
+  right: -10%;
+  background: #06b6d4;
+  animation-delay: -6s;
 }
 
-.room-header h1{
-    font-size:30px;
+@keyframes orbFloat {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.15); }
 }
 
-.room-header span{
-    color:#9ca8bf;
+/* Плавные анимации появления */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:15px;
+.animate-fade {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.online{
-    background:#202b41;
-    color:#62b5ff;
-    padding:10px 18px;
-    border-radius:12px;
-    font-weight:700;
+/* Стеклянные панели нового поколения (Глубокое стекло + градиентная рамка) */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--panel-border);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.copy-btn{
-    background:#2d8cff;
-    color:white;
-    border:none;
-    border-radius:12px;
-    padding:11px 18px;
-    font-weight:700;
+.glass-panel:hover {
+  border-color: var(--panel-border-hover);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(99, 102, 241, 0.1);
 }
 
-.copy-btn:hover{
-    transform:translateY(-2px);
-    background:#45a0ff;
+/* Инпуты */
+.cyber-input {
+  width: 100%;
+  padding: 16px 22px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
 }
 
-.leave-btn{
-    background:#ff4d4f;
-    color:white;
-    border:none;
-    border-radius:12px;
-    padding:11px 18px;
-    font-weight:700;
+.cyber-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+  background: rgba(0, 0, 0, 0.6);
 }
 
-.leave-btn:hover{
-    transform:translateY(-2px);
+/* Кнопки с неоновым свечением */
+.btn-cyber {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
-.room-grid{
-    display:grid;
-    grid-template-columns:2.3fr 1fr;
-    gap:22px;
+.btn-cyber:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+  filter: brightness(1.1);
 }
 
-.video-card{
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(20px);
-    border-radius:22px;
-    padding:22px;
+.btn-danger {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.3));
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  box-shadow: none;
+}
+.btn-danger:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
 }
 
-.video-container{
-    display:flex;
-    flex-direction:column;
+/* Скроллбар */
+::-webkit-scrollbar {
+  width: 6px;
 }
-
-.video-container video{
-    width:100%;
-    border-radius:18px;
-    background:black;
-    box-shadow:0 0 30px rgba(0,0,0,.4);
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-
-.side-panel{
-    display:flex;
-    flex-direction:column;
-    gap:22px;
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
-
-.panel{
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(20px);
-    border-radius:22px;
-    padding:20px;
-}
-
-.panel h2{
-    margin-bottom:18px;
-}
-
-.voice-btn{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:14px;
-    background:#22c55e;
-    color:white;
-    font-size:16px;
-    font-weight:700;
-}
-
-.voice-btn:hover{
-    transform:translateY(-2px);
-}
-
-.chat-box{
-    display:flex;
-    flex-direction:column;
-    height:420px;
-}
-
-.messages{
-    flex:1;
-    overflow-y:auto;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    padding-right:5px;
-}
-
-.messages::-webkit-scrollbar{
-    width:6px;
-}
-
-.messages::-webkit-scrollbar-thumb{
-    background:#39557d;
-    border-radius:20px;
-}
-
-.message{
-    background:#1b2434;
-    border-radius:14px;
-    padding:12px;
-}
-
-.message strong{
-    color:#59adff;
-}
-
-.message span{
-    display:block;
-    margin:6px 0;
-}
-
-.message small{
-    color:#8d96a8;
-}
-
-.chat-input{
-    margin-top:15px;
-    display:flex;
-    gap:10px;
-}
-
-.chat-input button{
-    width:55px;
-    border:none;
-    border-radius:12px;
-    background:#2d8cff;
-    color:white;
-    font-size:20px;
-}
-
-.chat-input button:hover{
-    background:#46a1ff;
-}
-
-@media(max-width:1000px){
-
-.room-grid{
-    grid-template-columns:1fr;
-}
-
-.room-header{
-    flex-direction:column;
-    gap:18px;
-    align-items:flex-start;
-}
-
-.header-actions{
-    width:100%;
-    flex-wrap:wrap;
-}
-
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
 }
